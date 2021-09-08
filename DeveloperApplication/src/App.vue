@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="container" style="border: 1px solid black;">
-      <form class="row g-3">
+      <form class="row g-3" @submit.prevent="handleSubmit()">
         <div class="col-md-6">
           <label for="developerName" class="form-label">Developer Name</label>
           <input
@@ -21,7 +21,7 @@
           />
         </div>
         <div class="col-12">
-          <label for="sourceAddress" class="form-label"> Source Address</label>
+          <label for="sourceAddress" class="form-label"> Source Link</label>
           <input
             type="text"
             class="form-control"
@@ -31,11 +31,7 @@
           />
         </div>
         <div class="col-12" style="text-align: center;">
-          <button
-            type="submit"
-            class="btn btn-lg btn-dark"
-            @click="handleSubmit()"
-          >
+          <button type="submit" class="btn btn-lg btn-dark">
             Submit
           </button>
         </div>
@@ -72,6 +68,7 @@ export default {
           console.log(err);
           alert("Error Posting");
         });
+      (this.devname = ""), (this.email = ""), (this.sourcelink = "");
     },
   },
 };
