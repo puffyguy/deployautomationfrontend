@@ -16,16 +16,34 @@
           <td>{{ index }}</td>
           <td>{{ source.sourcelink }}</td>
           <td>{{ source.ticket }}</td>
-          <td><button class="btn btn-dark btn-sm">Request Approval</button></td>
           <td>
             <button
               class="btn btn-dark btn-sm"
+              :disabled="source.isrequested"
+              @click="sendOtp()"
+            >
+              Request Approval
+            </button>
+          </td>
+          <td>
+            <button
+              class="btn btn-dark btn-sm"
+              :disabled="source.isapproved"
               @click.prevent="deploy(source.sourcelink)"
             >
               Deploy
             </button>
           </td>
-          <td><input type="text" name="otp" /></td>
+          <!-- <td><input type="text" name="otp" v-model="otp" /></td> -->
+          <td>
+            <button
+              class="btn btn-dark btn-sm"
+              :disabled="source.isvarified"
+              @click.prevent="verifyOtp()"
+            >
+              Verify OTP
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -39,9 +57,20 @@ export default {
   data() {
     return {
       sources: null,
+      otp: "",
+      // isVerified: false,
+      // isApproved: false,
+      // isRequested: false,
     };
   },
   methods: {
+    verifyOtp() {
+      var otp = prompt("enter otp");
+      var usrOtp = this.$session.get("otp");
+      if (usrOtp === otp) {
+        alert("Otp Verified..!  Karde Deploy");
+      }
+    },
     getSource() {
       axios
         .get("/v1/getSources")
@@ -63,6 +92,20 @@ export default {
         alert("Deployment Success");
         console.log(res);
       });
+    },
+    sendOtp() {
+      var email = {
+        to: "sreeharip@mkcl.org",
+      };
+      axios
+        .post("/v1/otpmail", email)
+        .then((res) => {
+          this.$session.set("otp", res.data.otp);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      (this.isRequested = true), (this.isVerified = false);
     },
   },
   created() {

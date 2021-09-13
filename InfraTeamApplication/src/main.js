@@ -6,7 +6,9 @@ import Login from './components/Login.vue'
 import Navbar from './components/Navbar.vue'
 import RequestComponent from './components/RequestComponent'
 import DeployComponent from './components/DeployComponent'
+import VueSessionStorage from 'vue-sessionstorage'
 
+Vue.use(VueSessionStorage)
 Vue.use(VueSimpleAlert)
 Vue.use(VueRouter)
 const routes = [
