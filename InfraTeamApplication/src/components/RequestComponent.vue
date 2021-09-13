@@ -5,9 +5,9 @@
         <tr>
           <th scope="col">Sl.No</th>
           <th scope="col">Source Link</th>
-          <th scope="col">Time Stamp</th>
+          <th scope="col">Ticket ID</th>
           <th scope="col">Request</th>
-          <th scope="col">Deployed</th>
+          <th scope="col">Deploy</th>
           <th scope="col">One Time Password</th>
         </tr>
       </thead>
@@ -15,17 +15,17 @@
         <tr v-for="(source, index) in sources" :key="index">
           <td>{{ index }}</td>
           <td>{{ source.sourcelink }}</td>
-          <td>{{ source.timestamp }}</td>
+          <td>{{ source.ticket }}</td>
           <td><button class="btn btn-dark btn-sm">Request Approval</button></td>
           <td>
             <button
               class="btn btn-dark btn-sm"
-              @click="deploy(source.sourcelink)"
+              @click.prevent="deploy(source.sourcelink)"
             >
               Deploy
             </button>
           </td>
-          <td><input type="text" name="" id="" /></td>
+          <td><input type="text" name="otp" /></td>
         </tr>
       </tbody>
     </table>
@@ -60,7 +60,7 @@ export default {
       };
       console.log(deployment);
       axios.post("/v1/deployFiles", deployment).then((res) => {
-        alert("Hogayaa");
+        alert("Deployment Success");
         console.log(res);
       });
     },

@@ -1,15 +1,14 @@
 <template>
-    <div class="container">
-        <h4>Say Hello</h4>
-    </div>
+  <div class="container">
+    <br />
+    <h4>Say Hello</h4>
+  </div>
 </template>
 
 <script>
 export default {
-    name: 'DeployComponent'    
-}
+  name: "DeployComponent",
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
